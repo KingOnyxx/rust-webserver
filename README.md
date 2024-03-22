@@ -64,3 +64,17 @@ let (status_line, filename) = match &http_request[..] {
 ```
 ```let (status_line, filename) = match &http_request[..] { "GET / HTTP/1.1" => ("HTTP/1.1 200 OK", "hello.html"), "GET /sleep HTTP/1.1" => { thread::sleep(Duration::from_secs(10)); ("HTTP/1.1 200 OK", "hello.html") } _ => ("HTTP/1.1 404 NOT FOUND", "404.html"),};``` is for checking the request and setting the status line and filename. \
 ```thread::sleep(Duration::from_secs(10));``` is for making the thread sleep for 10 seconds.
+
+# Commit 5 Reflection notes
+```rust
+let pool = ThreadPool::new(4);
+for stream in listener.incoming() {
+let stream = stream.unwrap();
+pool.execute(|| {
+        handle_connection(stream);
+});
+}
+```
+```let pool = ThreadPool::new(4);``` is for creating a thread pool with 4 threads. \
+```for stream in listener.incoming() { let stream = stream.unwrap(); pool.execute(|| { handle_connection(stream); });}``` is for looping through the incoming connections and executing the handle_connection function.
+The tasks are going to be submitted to the thread pool via the execute method. The thread pool manages a fixed number of worker threads which in this case is 4 workers, each of which continuously takes tasks from a shared queue and executes them concurrently. This will improve performance by reusing threads and reducing the overhead of thread creation and destruction for each task.
