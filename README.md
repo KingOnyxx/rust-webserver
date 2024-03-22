@@ -78,3 +78,10 @@ pool.execute(|| {
 ```let pool = ThreadPool::new(4);``` is for creating a thread pool with 4 threads. \
 ```for stream in listener.incoming() { let stream = stream.unwrap(); pool.execute(|| { handle_connection(stream); });}``` is for looping through the incoming connections and executing the handle_connection function.
 The tasks are going to be submitted to the thread pool via the execute method. The thread pool manages a fixed number of worker threads which in this case is 4 workers, each of which continuously takes tasks from a shared queue and executes them concurrently. This will improve performance by reusing threads and reducing the overhead of thread creation and destruction for each task.
+
+# Commit Bonus Reflection notes
+In Rust, it is a common convention to use the build method when creating complex objects with multiple configuration options. The build method allows you to chain multiple configuration methods together before finally creating the object.
+
+On the other hand, the new method is typically used when creating a simple object with default or minimal configuration options. It is a straightforward way to create an instance of a struct without any additional customization.
+
+By using the build method, you can provide more flexibility and configurability to your objects. It allows you to set various properties or options in a fluent and readable manner. This can be especially useful when dealing with complex objects that require multiple configuration steps.
