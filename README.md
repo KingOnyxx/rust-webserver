@@ -53,3 +53,14 @@ let (status_line, filename) = if http_request == "GET / HTTP/1.1" {
 ```let http_request= buf_reader.lines().next().unwrap().unwrap();``` is for getting the first line of the request. \
 ```let (status_line, filename) = if http_request == "GET / HTTP/1.1" {("HTTP/1.1 200 OK", "hello.html")} else {("HTTP/1.1 404 NOT FOUND", "404.html")};``` is for checking the request and setting the status line and filename.
 ![alt text](/assets/images/image2.png)
+
+# Commit 4 Reflection notes
+```rust
+let (status_line, filename) = match &http_request[..] {
+        "GET / HTTP/1.1" => ("HTTP/1.1 200 OK", "hello.html"), "GET /sleep HTTP/1.1" => {
+        thread::sleep(Duration::from_secs(10)); ("HTTP/1.1 200 OK", "hello.html") }
+        _ => ("HTTP/1.1 404 NOT FOUND", "404.html"),
+};
+```
+```let (status_line, filename) = match &http_request[..] { "GET / HTTP/1.1" => ("HTTP/1.1 200 OK", "hello.html"), "GET /sleep HTTP/1.1" => { thread::sleep(Duration::from_secs(10)); ("HTTP/1.1 200 OK", "hello.html") } _ => ("HTTP/1.1 404 NOT FOUND", "404.html"),};``` is for checking the request and setting the status line and filename. \
+```thread::sleep(Duration::from_secs(10));``` is for making the thread sleep for 10 seconds.
