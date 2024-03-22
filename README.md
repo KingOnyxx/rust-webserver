@@ -40,3 +40,16 @@ stream.write(response.as_bytes()).unwrap();
 ```stream.write(response.as_bytes()).unwrap();``` is for writing the response to the stream.
 
 ![alt text](/assets/images/image.png)
+
+# Commit 3 Reflection notes
+```rust
+let http_request= buf_reader.lines().next().unwrap().unwrap();
+let (status_line, filename) = if http_request == "GET / HTTP/1.1" {
+("HTTP/1.1 200 OK", "hello.html")
+} else {
+("HTTP/1.1 404 NOT FOUND", "404.html")
+};
+```
+```let http_request= buf_reader.lines().next().unwrap().unwrap();``` is for getting the first line of the request. \
+```let (status_line, filename) = if http_request == "GET / HTTP/1.1" {("HTTP/1.1 200 OK", "hello.html")} else {("HTTP/1.1 404 NOT FOUND", "404.html")};``` is for checking the request and setting the status line and filename.
+![alt text](/assets/images/image2.png)
